@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class RowInserter {
-    private String queryTemplate;
+    private final String queryTemplate;
 
     public RowInserter() throws IOException {
         queryTemplate = QueryLoader.loadQuery("queries/main/insert.sql");
@@ -30,19 +30,21 @@ public class RowInserter {
         }
         header.deleteCharAt(header.length() - 2);
         valuesPlace.deleteCharAt(valuesPlace.length() - 2);
-
+        String query = String.format(queryTemplate, tableName, header, valuesPlace);
         Table table = Schema.getInstance().getTable(tableName);
 
-        try(PreparedStatement statement = Database.getInstance().prepareStatement(queryTemplate)) {
+        try(PreparedStatement statement = Database.getInstance().prepareStatement(query)) {
             List<Map.Entry<String, String>> list = values.entrySet().stream().toList();
             for(int index = 0; index < list.size(); index++) {
                 Map.Entry<String, String> entry = list.get(index);
                 Column column = table.getColumn(entry.getKey());
                 String type = column.getDataType().getDisplayName();
+
                 ColumnWriter writer = (ColumnWriter) AbstractFactory.instance().
                         getFactory("column_writer").createProduct(type, null);
                 writer.write(statement, index + 1, entry.getValue());
             }
+            statement.execute();
         }
     }
 }
