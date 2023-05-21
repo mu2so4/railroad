@@ -1,0 +1,5 @@
+ru.nsu.ccfit.muratov.railroad.factory.creator.SimpleProductCreator
+ru.nsu.ccfit.muratov.railroad.database.row.writer.ColumnWriter
+VARCHAR ru.nsu.ccfit.muratov.railroad.database.row.writer.StringColumnWriter
+BOOL ru.nsu.ccfit.muratov.railroad.database.row.writer.BooleanColumnWriter
+INT4 ru.nsu.ccfit.muratov.railroad.database.row.writer.IntegerColumnWriter
