@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum DataType {
     INT4("integer"),
-    FLOAT8("float"),
+    FLOAT8("double"),
     VARCHAR("varchar"),
     DATE("date"),
     BPCHAR("character"),
@@ -16,7 +16,7 @@ public enum DataType {
     TEXT("text"),
     NUMERIC("numeric"),
     TIMESTAMP("timestamp"),
-    TIMESTAMPTZ("timestamp with timezone"),
+    TIMESTAMPTZ("timestamp_with_timezone"),
     BOOL("boolean");
 
     private final String displayName;
