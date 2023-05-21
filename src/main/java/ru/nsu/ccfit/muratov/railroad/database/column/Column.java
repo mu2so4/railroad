@@ -10,7 +10,7 @@ import lombok.Setter;
 public class Column {
     private String name;
     private boolean nullable;
-    private String dataType;
+    private DataType dataType;
     private int maxCharLength;
     private boolean updatable;
 }
