@@ -15,7 +15,7 @@ public class ColumnListReader {
     private final String query;
 
     public ColumnListReader() throws IOException {
-        query = QueryLoader.loadQuery("queries/meta/fetch_table_columns.sql");
+        query = QueryLoader.loadQuery("queries/meta/table_columns.sql");
     }
 
     public List<Column> getTableColumns(String tableName) throws DatabaseException, SQLException {
@@ -30,7 +30,8 @@ public class ColumnListReader {
                 DataType typeName = DataType.valueOf(set.getString("udt_name").toUpperCase());
                 int maxCharLength = set.getInt("character_maximum_length");
                 boolean isUpdatable = set.getBoolean("is_updatable");
-                list.add(new Column(columnName, isNullable, typeName, maxCharLength, isUpdatable));
+                int ordinalPosition = set.getInt("ordinal_position");
+                list.add(new Column(columnName, isNullable, typeName, maxCharLength, isUpdatable, ordinalPosition));
             }
         }
         return list;
