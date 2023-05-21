@@ -1,8 +1,6 @@
 package ru.nsu.ccfit.muratov.railroad.database.row;
 
-import ru.nsu.ccfit.muratov.railroad.database.Database;
-import ru.nsu.ccfit.muratov.railroad.database.DatabaseException;
-import ru.nsu.ccfit.muratov.railroad.database.QueryLoader;
+import ru.nsu.ccfit.muratov.railroad.database.*;
 import ru.nsu.ccfit.muratov.railroad.database.column.Column;
 import ru.nsu.ccfit.muratov.railroad.database.column.ColumnListReader;
 
@@ -20,13 +18,16 @@ public class TableReader {
         query = QueryLoader.loadQuery("queries/main/table_rows.sql");
     }
 
-    public void fetchTable(String tableName) throws IOException, SQLException, DatabaseException {
+    public void fetchTable(String tableName, OrderByList list) throws IOException, SQLException, DatabaseException {
         ColumnListReader columnListReader = new ColumnListReader();
         List<Column> columns = columnListReader.getTableColumns(tableName);
 
         Connection db = Database.getInstance();
         try(Statement statement = db.createStatement()) {
             String fullQuery = String.format(query, tableName);
+            if(list != null) {
+                fullQuery += list.makeOrderByStatement();
+            }
             ResultSet set = statement.executeQuery(fullQuery);
             while(set.next()) {
                 for (Column column : columns) {
