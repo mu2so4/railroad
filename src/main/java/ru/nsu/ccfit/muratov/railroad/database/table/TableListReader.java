@@ -15,7 +15,7 @@ public class TableListReader {
     private final String query;
 
     public TableListReader() throws IOException {
-        query = QueryLoader.loadQuery("queries/meta/fetch_tables.sql");
+        query = QueryLoader.loadQuery("queries/meta/tables.sql");
     }
 
     public List<Table> loadTableList() throws SQLException, DatabaseException, IOException {
