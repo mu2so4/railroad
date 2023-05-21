@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.muratov.railroad.database.row;
+package ru.nsu.ccfit.muratov.railroad.database.table;
 
 import ru.nsu.ccfit.muratov.railroad.database.*;
 import ru.nsu.ccfit.muratov.railroad.database.column.Column;
