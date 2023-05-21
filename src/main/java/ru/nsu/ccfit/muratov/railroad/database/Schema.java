@@ -1,6 +1,5 @@
-package ru.nsu.ccfit.muratov.railroad.database.schema;
+package ru.nsu.ccfit.muratov.railroad.database;
 
-import ru.nsu.ccfit.muratov.railroad.database.DatabaseException;
 import ru.nsu.ccfit.muratov.railroad.database.table.Table;
 import ru.nsu.ccfit.muratov.railroad.database.table.TableListReader;
 

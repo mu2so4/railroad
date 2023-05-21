@@ -3,7 +3,6 @@ package ru.nsu.ccfit.muratov.railroad.database;
 import ru.nsu.ccfit.muratov.railroad.database.column.Column;
 import ru.nsu.ccfit.muratov.railroad.database.row.writer.ColumnWriter;
 import ru.nsu.ccfit.muratov.railroad.database.table.Table;
-import ru.nsu.ccfit.muratov.railroad.database.schema.Schema;
 import ru.nsu.ccfit.muratov.railroad.factory.AbstractFactory;
 import ru.nsu.ccfit.muratov.railroad.factory.creator.ProductCreatorException;
 
