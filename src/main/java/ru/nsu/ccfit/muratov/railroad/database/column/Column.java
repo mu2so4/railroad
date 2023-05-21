@@ -13,4 +13,5 @@ public class Column {
     private DataType dataType;
     private int maxCharLength;
     private boolean updatable;
+    private int orderNumber;
 }
