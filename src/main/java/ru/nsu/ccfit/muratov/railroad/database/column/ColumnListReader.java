@@ -15,7 +15,7 @@ public class ColumnListReader {
     private final String query;
 
     public ColumnListReader() throws IOException {
-        query = QueryLoader.loadQuery("queries/meta/fetch_table_rows.sql");
+        query = QueryLoader.loadQuery("queries/meta/fetch_table_columns.sql");
     }
 
     public List<Column> getTableColumns(String tableName) throws DatabaseException, SQLException {
@@ -27,12 +27,22 @@ public class ColumnListReader {
             while(set.next()) {
                 String columnName = set.getString("column_name");
                 boolean isNullable = set.getBoolean("is_nullable");
-                String typeName = set.getString("data_type");
+                DataType typeName = DataType.valueOf(set.getString("udt_name").toUpperCase());
                 int maxCharLength = set.getInt("character_maximum_length");
                 boolean isUpdatable = set.getBoolean("is_updatable");
                 list.add(new Column(columnName, isNullable, typeName, maxCharLength, isUpdatable));
             }
         }
         return list;
+    }
+
+    public static void main(String[] args) throws IOException, SQLException, DatabaseException {
+        ColumnListReader reader = new ColumnListReader();
+        List<Column> columns = reader.getTableColumns(args[0]);
+        for(Column column: columns) {
+            System.out.printf("name: %s, nullable: %s, type: %s, maxChar: %d, updatable: %s%n",
+                    column.getName(), column.isNullable(), column.getDataType().getDisplayName(),
+                    column.getMaxCharLength(), column.isUpdatable());
+        }
     }
 }
