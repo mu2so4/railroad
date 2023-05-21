@@ -7,7 +7,10 @@ import ru.nsu.ccfit.muratov.railroad.database.column.Column;
 import ru.nsu.ccfit.muratov.railroad.database.column.ColumnListReader;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Array;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +33,16 @@ public class TableListReader {
                 TableType type = TableType.valueOf(typeName.replace(" ", "_"));
                 boolean isMutable = set.getBoolean("is_insertable_into");
                 List<Column> columns = columnListReader.getTableColumns(tableName);
+                Array primaryKey = set.getArray("primary_key");
+                Short[] keyArray;
+                if(primaryKey != null) {
+                    keyArray = (Short[]) primaryKey.getArray();
+                }
+                else {
+                    keyArray = null;
+                }
 
-                list.add(new Table(tableName, type, isMutable, columns));
+                list.add(new Table(tableName, type, isMutable, columns, keyArray));
             }
         }
         return list;
