@@ -15,7 +15,7 @@ public class ColumnListReader {
     private final String query;
 
     public ColumnListReader() throws IOException {
-        query = QueryLoader.loadQuery("queries/meta/fetch_table_columns.sql");
+        query = QueryLoader.loadQuery("queries/meta/table_columns.sql");
     }
 
     public List<Column> getTableColumns(String tableName) throws DatabaseException, SQLException {
