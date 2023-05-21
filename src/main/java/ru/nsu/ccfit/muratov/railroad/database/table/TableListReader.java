@@ -1,6 +1,7 @@
 package ru.nsu.ccfit.muratov.railroad.database.table;
 
 import ru.nsu.ccfit.muratov.railroad.database.Database;
+import ru.nsu.ccfit.muratov.railroad.database.DatabaseException;
 import ru.nsu.ccfit.muratov.railroad.database.QueryLoader;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class TableListReader {
         query = QueryLoader.loadQuery("queries/meta/fetch_tables.sql");
     }
 
-    public List<Table> loadTableList() throws SQLException, IOException, ClassNotFoundException {
+    public List<Table> loadTableList() throws SQLException, DatabaseException {
         ResultSet set;
         ArrayList<Table> list = new ArrayList<>();
         try(Statement statement = Database.getInstance().createStatement()) {
