@@ -9,9 +9,7 @@ import ru.nsu.ccfit.muratov.railroad.database.column.ColumnListReader;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class TableListReader {
     private final String query;

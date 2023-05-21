@@ -35,14 +35,4 @@ public class ColumnListReader {
         }
         return list;
     }
-
-    public static void main(String[] args) throws IOException, SQLException, DatabaseException {
-        ColumnListReader reader = new ColumnListReader();
-        List<Column> columns = reader.getTableColumns(args[0]);
-        for(Column column: columns) {
-            System.out.printf("name: %s, nullable: %s, type: %s, maxChar: %d, updatable: %s%n",
-                    column.getName(), column.isNullable(), column.getDataType().getDisplayName(),
-                    column.getMaxCharLength(), column.isUpdatable());
-        }
-    }
 }
