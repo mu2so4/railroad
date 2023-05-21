@@ -8,6 +8,7 @@ public class SimpleProductCreator implements ProductCreator {
     public Object createProduct(Map<String, Class<?>> productList, String productName, String[] args)
             throws ProductCreatorException {
         if (!productList.containsKey(productName)) {
+            logger.warning(() -> String.format("product name '%s' not found", productName));
             return null;
         }
         try {
