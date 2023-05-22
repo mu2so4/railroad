@@ -33,16 +33,7 @@ public class RowInserter {
         Table table = Schema.getInstance().getTable(tableName);
 
         try(PreparedStatement statement = Database.getInstance().prepareStatement(query)) {
-            List<Map.Entry<String, String>> list = values.entrySet().stream().toList();
-            for(int index = 0; index < list.size(); index++) {
-                Map.Entry<String, String> entry = list.get(index);
-                Column column = table.getColumn(entry.getKey());
-                String type = column.getDataType().getDisplayName();
-
-                ColumnWriter writer = (ColumnWriter) AbstractFactory.instance().
-                        getFactory("column_writer").createProduct(type, null);
-                writer.write(statement, index + 1, entry.getValue());
-            }
+            QueryFormFiller.fillForm(statement, values, table, 1);
             statement.execute();
         }
     }
