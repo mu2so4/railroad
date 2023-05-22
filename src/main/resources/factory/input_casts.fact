@@ -4,4 +4,4 @@ default ru.nsu.ccfit.muratov.railroad.database.column.form.DefaultInputCast
 money ru.nsu.ccfit.muratov.railroad.database.column.form.MoneyInputCast
 interval ru.nsu.ccfit.muratov.railroad.database.column.form.IntervalInputCast
 timestamp ru.nsu.ccfit.muratov.railroad.database.column.form.TimestampInputCast
-timestamp_with_timezone ru.nsu.ccfit.muratov.railroad.database.column.form.TimestampInputCast
+timestamp_with_timezone ru.nsu.ccfit.muratov.railroad.database.column.form.TimestamptzInputCast
