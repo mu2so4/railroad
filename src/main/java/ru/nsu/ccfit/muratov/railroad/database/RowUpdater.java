@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.Map;
 
 public class RowUpdater {
     private static final String queryTemplate =
@@ -22,14 +21,7 @@ public class RowUpdater {
     public static void updateRow(String tableName, Row rowKey, Row newValues)
             throws DatabaseException, SQLException, ProductCreatorException, IOException {
         Table table = Schema.getInstance().getTable(tableName);
-        String[] givenKey = rowKey.getValues().keySet().toArray(new String[0]);
-        String[] trueKey = new String[table.getPrimaryKey().size()];
-        for(int index = 0; index < trueKey.length; index++) {
-            trueKey[index] = table.getPrimaryKey().get(index).getName();
-        }
-        Arrays.sort(givenKey);
-        Arrays.sort(trueKey);
-        if(!Arrays.equals(givenKey, trueKey)) {
+        if(!QueryLoader.checkPrimaryKey(table, rowKey)) {
             throw new SQLException(
                     String.format("key not match to the primary key of table \"%s\"", table.getName()));
         }
