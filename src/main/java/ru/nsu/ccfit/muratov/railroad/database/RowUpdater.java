@@ -10,13 +10,16 @@ import java.util.Arrays;
 import java.util.Map;
 
 public class RowUpdater {
-    private final String queryTemplate;
+    private static final String queryTemplate =
+        """
+        UPDATE "%s"
+        SET %s
+        WHERE %s
+        """;
 
-    public RowUpdater() throws IOException {
-        queryTemplate = QueryLoader.loadQuery("queries/main/update.sql");
-    }
+    private RowUpdater() {}
 
-    public void updateRow(String tableName, Map<String, String> rowKey, Map<String, String> newValues)
+    public static void updateRow(String tableName, Map<String, String> rowKey, Map<String, String> newValues)
             throws DatabaseException, SQLException, ProductCreatorException, IOException {
         Table table = Schema.getInstance().getTable(tableName);
         String[] givenKey = rowKey.keySet().toArray(new String[0]);
