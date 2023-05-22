@@ -6,7 +6,7 @@ import ru.nsu.ccfit.muratov.railroad.factory.creator.ProductCreatorException;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.Map;
 
 public class RowUpdater {
@@ -19,11 +19,20 @@ public class RowUpdater {
     public void updateRow(String tableName, Map<String, String> rowKey, Map<String, String> newValues)
             throws DatabaseException, SQLException, ProductCreatorException, IOException {
         Table table = Schema.getInstance().getTable(tableName);
-        //todo check if full primary key
+        String[] givenKey = rowKey.keySet().toArray(new String[0]);
+        String[] trueKey = new String[table.getPrimaryKey().size()];
+        for(int index = 0; index < trueKey.length; index++) {
+            trueKey[index] = table.getPrimaryKey().get(index).getName();
+        }
+        Arrays.sort(givenKey);
+        Arrays.sort(trueKey);
+        if(!Arrays.equals(givenKey, trueKey)) {
+            throw new SQLException(
+                    String.format("key not match to the primary key of table \"%s\"", table.getName()));
+        }
 
         StringBuilder body = new StringBuilder();
         StringBuilder keyCheck = new StringBuilder();
-
         for(Map.Entry<String, String> entry: newValues.entrySet()) {
             body.append(String.format(" \"%s\" = ?, ", entry.getKey()));
         }
