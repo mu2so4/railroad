@@ -21,7 +21,7 @@ public class RowDeleter {
             throw new SQLException(
                     String.format("key not match to the primary key of table \"%s\"", table.getName()));
         }
-        StringBuilder keyCheck = QueryFormFiller.createForm(key, "= ?", " AND ");
+        StringBuilder keyCheck = QueryFormFiller.createCompoundForm(key, "= ?", " AND ", table);
         String query = String.format(queryTemplate, tableName, keyCheck);
         try(PreparedStatement statement = Database.getInstance().prepareStatement(query)) {
             QueryFormFiller.fillForm(statement, key, table, 1);

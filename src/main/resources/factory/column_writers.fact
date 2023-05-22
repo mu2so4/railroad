@@ -8,7 +8,7 @@ double ru.nsu.ccfit.muratov.railroad.database.column.writer.DoubleColumnWriter
 float ru.nsu.ccfit.muratov.railroad.database.column.writer.FloatColumnWriter
 numeric ru.nsu.ccfit.muratov.railroad.database.column.writer.NumericColumnWriter
 date ru.nsu.ccfit.muratov.railroad.database.column.writer.DateColumnWriter
-timestamp ru.nsu.ccfit.muratov.railroad.database.column.writer.TimestampColumnWriter
-timestamp_with_timezone ru.nsu.ccfit.muratov.railroad.database.column.writer.TimestampColumnWriter
-interval ru.nsu.ccfit.muratov.railroad.database.column.writer.TimeColumnWriter
-money ru.nsu.ccfit.muratov.railroad.database.column.writer.NumericColumnWriter
+timestamp ru.nsu.ccfit.muratov.railroad.database.column.writer.StringColumnWriter
+timestamp_with_timezone ru.nsu.ccfit.muratov.railroad.database.column.writer.StringColumnWriter
+interval ru.nsu.ccfit.muratov.railroad.database.column.writer.StringColumnWriter
+money ru.nsu.ccfit.muratov.railroad.database.column.writer.DoubleColumnWriter
