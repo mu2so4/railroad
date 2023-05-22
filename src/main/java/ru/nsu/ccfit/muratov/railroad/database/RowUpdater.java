@@ -34,19 +34,10 @@ public class RowUpdater {
                     String.format("key not match to the primary key of table \"%s\"", table.getName()));
         }
 
-        StringBuilder body = new StringBuilder();
-        StringBuilder keyCheck = new StringBuilder();
-        for(Map.Entry<String, String> entry: newValues) {
-            body.append(String.format(" \"%s\" = ?, ", entry.getKey()));
-        }
-        body.deleteCharAt(body.length() - 2);
-
-        for(Map.Entry<String, String> entry: rowKey) {
-            keyCheck.append(String.format(" \"%s\" = ? AND ", entry.getKey()));
-        }
-        keyCheck.delete(keyCheck.length() - 4, keyCheck.length() - 1);
-
+        StringBuilder body = QueryFormFiller.createForm(newValues, "= ? ", ",");
+        StringBuilder keyCheck = QueryFormFiller.createForm(rowKey, "= ?", " AND ");
         String query = String.format(queryTemplate, tableName, body, keyCheck);
+
         try(PreparedStatement statement = Database.getInstance().prepareStatement(query)) {
             QueryFormFiller.fillForm(statement, newValues, table, 1);
             QueryFormFiller.fillForm(statement, rowKey, table, newValues.getValues().size() + 1);
