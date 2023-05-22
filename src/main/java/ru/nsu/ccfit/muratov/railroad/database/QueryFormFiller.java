@@ -1,6 +1,7 @@
 package ru.nsu.ccfit.muratov.railroad.database;
 
 import ru.nsu.ccfit.muratov.railroad.database.column.Column;
+import ru.nsu.ccfit.muratov.railroad.database.column.form.InputCast;
 import ru.nsu.ccfit.muratov.railroad.database.column.writer.ColumnWriter;
 import ru.nsu.ccfit.muratov.railroad.database.table.Table;
 import ru.nsu.ccfit.muratov.railroad.factory.AbstractFactory;
@@ -19,6 +20,20 @@ public class QueryFormFiller {
         StringBuilder result = new StringBuilder();
         for(Map.Entry<String, String> entry: values) {
             result.append(String.format(" \"%s\" %s %s ", entry.getKey(), suffix, separator));
+        }
+        result.delete(result.length() - separator.length() - 1, result.length() - 1);
+        return result;
+    }
+
+    public static StringBuilder createCompoundForm(Row values, String suffix, String separator, Table table)
+            throws IOException, ProductCreatorException {
+        StringBuilder result = new StringBuilder();
+        for(Map.Entry<String, String> entry: values) {
+            String datatype = table.getColumn(entry.getKey()).getDataType().getDisplayName();
+            InputCast caster = (InputCast) AbstractFactory.instance().
+                    getFactory("query_input_cast").createProduct(datatype, null);
+            result.append(
+                    String.format(" \"%s\" %s %s %s ", entry.getKey(), suffix, caster.getCast(), separator));
         }
         result.delete(result.length() - separator.length() - 1, result.length() - 1);
         return result;

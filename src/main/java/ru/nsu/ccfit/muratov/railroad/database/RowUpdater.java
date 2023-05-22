@@ -25,8 +25,8 @@ public class RowUpdater {
                     String.format("key not match to the primary key of table \"%s\"", table.getName()));
         }
 
-        StringBuilder body = QueryFormFiller.createSimpleForm(newValues, "= ? ", ",");
-        StringBuilder keyCheck = QueryFormFiller.createSimpleForm(rowKey, "= ?", " AND ");
+        StringBuilder body = QueryFormFiller.createCompoundForm(newValues, "= ? ", ",", table);
+        StringBuilder keyCheck = QueryFormFiller.createCompoundForm(rowKey, "= ?", " AND ", table);
         String query = String.format(queryTemplate, tableName, body, keyCheck);
 
         try(PreparedStatement statement = Database.getInstance().prepareStatement(query)) {
