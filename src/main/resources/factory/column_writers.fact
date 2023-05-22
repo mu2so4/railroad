@@ -1,4 +1,4 @@
-ru.nsu.ccfit.muratov.railroad.factory.creator.SimpleProductCreator
+ru.nsu.ccfit.muratov.railroad.factory.creator.OneTimeProductCreator
 ru.nsu.ccfit.muratov.railroad.database.row.writer.ColumnWriter
 varchar ru.nsu.ccfit.muratov.railroad.database.row.writer.StringColumnWriter
 character ru.nsu.ccfit.muratov.railroad.database.row.writer.StringColumnWriter

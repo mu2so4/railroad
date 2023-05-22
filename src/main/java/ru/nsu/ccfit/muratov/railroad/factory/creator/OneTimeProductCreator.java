@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SimpleProductCreator implements ProductCreator {
+public class OneTimeProductCreator implements ProductCreator {
     private final Map<String, Object> products = new HashMap<>();
 
     @Override
