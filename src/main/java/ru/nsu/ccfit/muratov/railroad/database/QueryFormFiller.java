@@ -15,7 +15,7 @@ import java.util.Map;
 public class QueryFormFiller {
     private QueryFormFiller() {}
 
-    public static StringBuilder createForm(Row values, String suffix, String separator) {
+    public static StringBuilder createSimpleForm(Row values, String suffix, String separator) {
         StringBuilder result = new StringBuilder();
         for(Map.Entry<String, String> entry: values) {
             result.append(String.format(" \"%s\" %s %s ", entry.getKey(), suffix, separator));

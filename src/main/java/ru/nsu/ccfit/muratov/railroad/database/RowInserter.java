@@ -23,7 +23,7 @@ public class RowInserter {
     public static void insertRow(String tableName, Row values)
             throws DatabaseException, SQLException, IOException, ProductCreatorException {
         Table table = Schema.getInstance().getTable(tableName);
-        StringBuilder header = QueryFormFiller.createForm(values, "", ", ");
+        StringBuilder header = QueryFormFiller.createSimpleForm(values, "", ", ");
         StringBuilder valuesPlace = new StringBuilder();
         for(Map.Entry<String, String> column: values) {
             String datatype = table.getColumn(column.getKey()).getDataType().getDisplayName();
