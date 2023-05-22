@@ -13,9 +13,8 @@ public class InputCastCreator implements ProductCreator {
     private Object defaultProduct;
 
     @Override
-    public Object createProduct(String productName, String[] args) throws ProductCreatorException {
+    public Object createProduct(String productName, String[] args) {
         if(!products.containsKey(productName)) {
-            logger.warning(() -> String.format("product name '%s' not found", productName));
             return defaultProduct;
         }
         return products.get(productName);
