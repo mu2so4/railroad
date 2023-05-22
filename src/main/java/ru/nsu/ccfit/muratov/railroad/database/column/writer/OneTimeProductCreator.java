@@ -1,4 +1,6 @@
-package ru.nsu.ccfit.muratov.railroad.factory.creator;
+package ru.nsu.ccfit.muratov.railroad.database.column.writer;
+
+import ru.nsu.ccfit.muratov.railroad.factory.creator.ProductCreator;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
