@@ -15,6 +15,15 @@ import java.util.Map;
 public class QueryFormFiller {
     private QueryFormFiller() {}
 
+    public static StringBuilder createForm(Row values, String suffix, String separator) {
+        StringBuilder result = new StringBuilder();
+        for(Map.Entry<String, String> entry: values) {
+            result.append(String.format(" \"%s\" %s %s ", entry.getKey(), suffix, separator));
+        }
+        result.delete(result.length() - separator.length() - 1, result.length() - 1);
+        return result;
+    }
+
     public static void fillForm(PreparedStatement statement, Row values, Table table, int startIndex)
             throws IOException, SQLException, ProductCreatorException {
         List<Map.Entry<String, String>> list = values.getValues().entrySet().stream().toList();
