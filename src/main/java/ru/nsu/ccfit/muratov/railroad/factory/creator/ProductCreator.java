@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 
 public interface ProductCreator {
     Logger logger = Logger.getLogger(ProductCreator.class.getCanonicalName());
-    Object createProduct(Map<String, Class<?>> productList, String productName, String[] args)
+    Object createProduct(String productName, String[] args)
             throws ProductCreatorException;
+
+    void setProductClasses(Map<String, Class<?>> productList);
 }

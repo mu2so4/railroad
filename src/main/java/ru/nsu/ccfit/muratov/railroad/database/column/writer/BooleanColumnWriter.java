@@ -1,11 +1,11 @@
-package ru.nsu.ccfit.muratov.railroad.database.row.writer;
+package ru.nsu.ccfit.muratov.railroad.database.column.writer;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class IntegerColumnWriter implements ColumnWriter {
+public class BooleanColumnWriter implements ColumnWriter {
     @Override
     public void write(PreparedStatement statement, int columnIndex, String value) throws SQLException {
-        statement.setInt(columnIndex, Integer.parseInt(value));
+        statement.setBoolean(columnIndex, Boolean.parseBoolean(value));
     }
 }

@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.muratov.railroad.database.row.writer;
+package ru.nsu.ccfit.muratov.railroad.database.column.writer;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
