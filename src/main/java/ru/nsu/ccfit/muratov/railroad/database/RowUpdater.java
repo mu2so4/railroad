@@ -1,8 +1,11 @@
 package ru.nsu.ccfit.muratov.railroad.database;
 
 import ru.nsu.ccfit.muratov.railroad.database.table.Table;
+import ru.nsu.ccfit.muratov.railroad.factory.creator.ProductCreatorException;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +16,8 @@ public class RowUpdater {
         queryTemplate = QueryLoader.loadQuery("queries/main/update.sql");
     }
 
-    public String updateRow(String tableName, Map<String, String> rowKey, Map<String, String> newValues) {
+    public void updateRow(String tableName, Map<String, String> rowKey, Map<String, String> newValues)
+            throws DatabaseException, SQLException, ProductCreatorException, IOException {
         Table table = Schema.getInstance().getTable(tableName);
         //todo check if full primary key
 
@@ -31,6 +35,10 @@ public class RowUpdater {
         keyCheck.delete(keyCheck.length() - 4, keyCheck.length() - 1);
 
         String query = String.format(queryTemplate, tableName, body, keyCheck);
-        return query;
+        try(PreparedStatement statement = Database.getInstance().prepareStatement(query)) {
+            QueryFormFiller.fillForm(statement, newValues, table, 1);
+            QueryFormFiller.fillForm(statement, rowKey, table, newValues.size() + 1);
+            statement.execute();
+        }
     }
 }
