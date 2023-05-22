@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.muratov.railroad.factory.creator;
+package ru.nsu.ccfit.muratov.railroad.factory;
 
 public class ProductCreatorException extends Exception {
     public ProductCreatorException() {
