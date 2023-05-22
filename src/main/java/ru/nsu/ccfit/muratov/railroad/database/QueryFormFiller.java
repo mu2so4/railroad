@@ -5,7 +5,7 @@ import ru.nsu.ccfit.muratov.railroad.database.column.form.InputCast;
 import ru.nsu.ccfit.muratov.railroad.database.column.writer.ColumnWriter;
 import ru.nsu.ccfit.muratov.railroad.database.table.Table;
 import ru.nsu.ccfit.muratov.railroad.factory.AbstractFactory;
-import ru.nsu.ccfit.muratov.railroad.factory.creator.ProductCreatorException;
+import ru.nsu.ccfit.muratov.railroad.factory.ProductCreatorException;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;

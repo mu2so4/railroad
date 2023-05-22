@@ -1,7 +1,5 @@
 package ru.nsu.ccfit.muratov.railroad.factory;
 
-import ru.nsu.ccfit.muratov.railroad.factory.creator.ProductCreator;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;

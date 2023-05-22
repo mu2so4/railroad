@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.muratov.railroad.factory.creator;
+package ru.nsu.ccfit.muratov.railroad.factory;
 
 import java.util.Map;
 import java.util.logging.Logger;
