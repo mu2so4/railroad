@@ -18,11 +18,11 @@ public class RowInserter {
 
     private RowInserter() {}
 
-    public static void insertRow(String tableName, Map<String, String> values)
+    public static void insertRow(String tableName, Row values)
             throws DatabaseException, SQLException, IOException, ProductCreatorException {
         StringBuilder header = new StringBuilder();
         StringBuilder valuesPlace = new StringBuilder();
-        for(Map.Entry<String, String> entry: values.entrySet()) {
+        for(Map.Entry<String, String> entry: values) {
             header.append(String.format(" \"%s\", ", entry.getKey()));
             valuesPlace.append("?, ");
         }

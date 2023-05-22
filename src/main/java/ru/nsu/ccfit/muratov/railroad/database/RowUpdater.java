@@ -19,10 +19,10 @@ public class RowUpdater {
 
     private RowUpdater() {}
 
-    public static void updateRow(String tableName, Map<String, String> rowKey, Map<String, String> newValues)
+    public static void updateRow(String tableName, Row rowKey, Row newValues)
             throws DatabaseException, SQLException, ProductCreatorException, IOException {
         Table table = Schema.getInstance().getTable(tableName);
-        String[] givenKey = rowKey.keySet().toArray(new String[0]);
+        String[] givenKey = rowKey.getValues().keySet().toArray(new String[0]);
         String[] trueKey = new String[table.getPrimaryKey().size()];
         for(int index = 0; index < trueKey.length; index++) {
             trueKey[index] = table.getPrimaryKey().get(index).getName();
@@ -36,12 +36,12 @@ public class RowUpdater {
 
         StringBuilder body = new StringBuilder();
         StringBuilder keyCheck = new StringBuilder();
-        for(Map.Entry<String, String> entry: newValues.entrySet()) {
+        for(Map.Entry<String, String> entry: newValues) {
             body.append(String.format(" \"%s\" = ?, ", entry.getKey()));
         }
         body.deleteCharAt(body.length() - 2);
 
-        for(Map.Entry<String, String> entry: rowKey.entrySet()) {
+        for(Map.Entry<String, String> entry: rowKey) {
             keyCheck.append(String.format(" \"%s\" = ? AND ", entry.getKey()));
         }
         keyCheck.delete(keyCheck.length() - 4, keyCheck.length() - 1);
@@ -49,7 +49,7 @@ public class RowUpdater {
         String query = String.format(queryTemplate, tableName, body, keyCheck);
         try(PreparedStatement statement = Database.getInstance().prepareStatement(query)) {
             QueryFormFiller.fillForm(statement, newValues, table, 1);
-            QueryFormFiller.fillForm(statement, rowKey, table, newValues.size() + 1);
+            QueryFormFiller.fillForm(statement, rowKey, table, newValues.getValues().size() + 1);
             statement.execute();
         }
     }
