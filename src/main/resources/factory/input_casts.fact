@@ -1,0 +1,5 @@
+ru.nsu.ccfit.muratov.railroad.database.column.form.InputCastCreator
+ru.nsu.ccfit.muratov.railroad.database.column.form.InputCast
+default ru.nsu.ccfit.muratov.railroad.database.column.form.DefaultInputCast
+money ru.nsu.ccfit.muratov.railroad.database.column.form.MoneyInputCast
+interval ru.nsu.ccfit.muratov.railroad.database.column.form.IntervalInputCast
