@@ -1,11 +1,14 @@
 package ru.nsu.ccfit.muratov.railroad.database;
 
+import ru.nsu.ccfit.muratov.railroad.database.column.form.InputCast;
 import ru.nsu.ccfit.muratov.railroad.database.table.Table;
+import ru.nsu.ccfit.muratov.railroad.factory.AbstractFactory;
 import ru.nsu.ccfit.muratov.railroad.factory.creator.ProductCreatorException;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Map;
 
 public class RowInserter {
     private static final String queryTemplate =
@@ -22,7 +25,12 @@ public class RowInserter {
         Table table = Schema.getInstance().getTable(tableName);
         StringBuilder header = QueryFormFiller.createForm(values, "", ", ");
         StringBuilder valuesPlace = new StringBuilder();
-        valuesPlace.append("?, ".repeat(values.getValues().size()));
+        for(Map.Entry<String, String> column: values) {
+            String datatype = table.getColumn(column.getKey()).getDataType().getDisplayName();
+            InputCast caster = (InputCast) AbstractFactory.instance().
+                    getFactory("query_input_cast").createProduct(datatype, null);
+            valuesPlace.append(String.format("?%s, ", caster.getCast()));
+        }
         valuesPlace.deleteCharAt(valuesPlace.length() - 2);
         String query = String.format(queryTemplate, tableName, header, valuesPlace);
 

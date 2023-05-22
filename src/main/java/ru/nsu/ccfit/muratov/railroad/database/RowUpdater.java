@@ -6,7 +6,6 @@ import ru.nsu.ccfit.muratov.railroad.factory.creator.ProductCreatorException;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 public class RowUpdater {
     private static final String queryTemplate =
