@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<AnchorPane prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.ccfit.muratov.railroad.gui.SelectTableController">
-
-</AnchorPane>
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.ccfit.muratov.railroad.gui.SelectTableController">
+   <children>
+      <TextField alignment="TOP_CENTER" editable="false" focusTraversable="false" text="Выбор таблицы для просмотра">
+         <font>
+            <Font name="DejaVu Sans Bold" size="21.0" />
+         </font>
+      </TextField>
+      <ListView fx:id="listOfTables" prefHeight="200.0" prefWidth="200.0" />
+      <Button fx:id="makeChoiceButton" mnemonicParsing="false" text="Выбрать" />
+      <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClick" text="Назад" />
+   </children>
+</VBox>
