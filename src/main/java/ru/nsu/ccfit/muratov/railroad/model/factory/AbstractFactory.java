@@ -11,7 +11,7 @@ public class AbstractFactory {
     private final Map<String, Factory> factories = new HashMap<>();
 
     private AbstractFactory() throws IOException {
-        String path = "factory/";
+        String path = "/factory/";
         Map<String, String> factoryList;
         try(AbstractFactoryLoader abstractFactoryLoader = new AbstractFactoryLoader(path + "factory.conf")) {
             factoryList = abstractFactoryLoader.load();

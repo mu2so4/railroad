@@ -14,6 +14,8 @@ public class RowDeleter {
             WHERE %s
             """;
 
+    private RowDeleter() {}
+
     public static void deleteRow(String tableName, Row key) throws SQLException,
             IOException, DatabaseException, ProductCreatorException {
         Table table = Schema.getInstance().getTable(tableName);

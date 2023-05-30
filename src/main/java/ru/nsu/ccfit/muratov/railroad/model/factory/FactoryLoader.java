@@ -12,7 +12,7 @@ public class FactoryLoader implements AutoCloseable {
     private final InputStream resource;
 
     public FactoryLoader(String resourceName) {
-        resource = FactoryLoader.class.getClassLoader().getResourceAsStream(resourceName);
+        resource = FactoryLoader.class.getResourceAsStream(resourceName);
     }
 
     private String readLine() throws IOException {
