@@ -10,11 +10,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.stage.Stage;
+import ru.nsu.ccfit.muratov.railroad.model.DatabaseException;
 import ru.nsu.ccfit.muratov.railroad.model.Row;
+import ru.nsu.ccfit.muratov.railroad.model.RowDeleter;
 import ru.nsu.ccfit.muratov.railroad.model.Schema;
+import ru.nsu.ccfit.muratov.railroad.model.column.Column;
+import ru.nsu.ccfit.muratov.railroad.model.factory.ProductCreatorException;
 import ru.nsu.ccfit.muratov.railroad.model.table.Table;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +29,8 @@ public class ViewTableController {
     private TableView dataTable;
     @FXML
     private TextArea tableNameHeader;
+    @FXML
+    private TextArea errorTextArea;
     @FXML
     private Button insertButton;
     @FXML
@@ -47,13 +55,6 @@ public class ViewTableController {
             textViewColumns.add(tableColumn);
         }
         for(Row row: rows) {
-            for(Map.Entry<String, String> column: row.getValues().entrySet()) {
-                TextField textField = new TextField();
-                textField.setText(column.getValue());
-                if(table.isPrimaryKey(column.getKey())) {
-                    textField.setStyle("-fx-font-weight: bold");
-                }
-            }
             dataTable.getItems().add(row.getValues());
         }
     }
@@ -65,5 +66,22 @@ public class ViewTableController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void onDeleteButtonClick() {
+        Map<String, String> rowMap = (Map<String, String>) dataTable.getSelectionModel().getSelectedItem();
+        Map<String, String> key = new HashMap<>();
+        for(Column column: table.getPrimaryKey()) {
+            String name = column.getName();
+            key.put(name, rowMap.get(name));
+        }
+        Row row = new Row(key);
+        try {
+            RowDeleter.deleteRow(table.getName(), row);
+            errorTextArea.setVisible(false);
+        } catch (SQLException | IOException | DatabaseException | ProductCreatorException e) {
+            errorTextArea.setVisible(true);
+            errorTextArea.setText(e.getMessage());
+        }
     }
 }

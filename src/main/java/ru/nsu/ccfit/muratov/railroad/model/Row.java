@@ -10,7 +10,11 @@ import java.util.Map;
 @AllArgsConstructor
 @Getter
 public class Row implements Iterable<Map.Entry<String, String>> {
-    private final Map<String, String> values = new HashMap<>();
+    private final Map<String, String> values;
+
+    public Row() {
+        values = new HashMap<>();
+    }
 
     public void add(String columnName, String value) {
         values.put(columnName, value);
