@@ -12,7 +12,7 @@ public class AbstractFactoryLoader implements AutoCloseable {
     private final String resourceName;
 
     public AbstractFactoryLoader(String abstractFactoryConfigFileName) {
-        resource = FactoryLoader.class.getClassLoader().getResourceAsStream(abstractFactoryConfigFileName);
+        resource = FactoryLoader.class.getResourceAsStream(abstractFactoryConfigFileName);
         resourceName = abstractFactoryConfigFileName;
     }
 
