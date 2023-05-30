@@ -70,6 +70,7 @@ public class ViewTableController {
 
     public void onDeleteButtonClick() {
         Map<String, String> rowMap = (Map<String, String>) dataTable.getSelectionModel().getSelectedItem();
+        int index = dataTable.getSelectionModel().getSelectedIndex();
         Map<String, String> key = new HashMap<>();
         for(Column column: table.getPrimaryKey()) {
             String name = column.getName();
@@ -79,6 +80,7 @@ public class ViewTableController {
         try {
             RowDeleter.deleteRow(table.getName(), row);
             errorTextArea.setVisible(false);
+            dataTable.getItems().remove(index);
         } catch (SQLException | IOException | DatabaseException | ProductCreatorException e) {
             errorTextArea.setVisible(true);
             errorTextArea.setText(e.getMessage());
