@@ -15,7 +15,7 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws Exception {
 
         Parent root =
-                FXMLLoader.load(getClass().getClassLoader().getResource("main-menu.fxml"));
+                FXMLLoader.load(getClass().getResource("/fxml/main-menu.fxml"));
         Scene scene = new Scene(root, 800, 800);
         stage.setTitle("Railroad");
         stage.setScene(scene);

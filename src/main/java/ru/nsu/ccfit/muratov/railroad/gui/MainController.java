@@ -26,7 +26,7 @@ public class MainController {
     }
 
     public void onEditDataClick(ActionEvent event) throws IOException, SQLException, DatabaseException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("select-table.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/select-table.fxml"));
         Parent root = loader.load();
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
@@ -44,7 +44,7 @@ public class MainController {
     }
 
     public void onPerformQueryClick(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("select-query.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/select-query.fxml"));
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         Scene scene = new Scene(root);
@@ -53,7 +53,7 @@ public class MainController {
     }
 
     public void onAboutClick(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("about.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/about.fxml"));
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         Scene scene = new Scene(root);

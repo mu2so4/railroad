@@ -16,7 +16,7 @@ public class SelectTableController {
     private ListView listOfTables;
 
     public void onBackButtonClick(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("main-menu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/main-menu.fxml"));
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         Scene scene = new Scene(root);
