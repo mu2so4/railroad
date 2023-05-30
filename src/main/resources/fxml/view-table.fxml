@@ -17,7 +17,7 @@
       </TextArea>
       <HBox alignment="TOP_CENTER" prefHeight="60.0" prefWidth="600.0">
          <children>
-            <Button fx:id="addButton" mnemonicParsing="false" text="Добавить">
+            <Button fx:id="insertButton" mnemonicParsing="false" text="Добавить">
                <HBox.margin>
                   <Insets />
                </HBox.margin></Button>

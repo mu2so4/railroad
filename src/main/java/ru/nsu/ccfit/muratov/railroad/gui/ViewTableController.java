@@ -7,15 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.stage.Stage;
 import ru.nsu.ccfit.muratov.railroad.database.Row;
 import ru.nsu.ccfit.muratov.railroad.database.Schema;
-import ru.nsu.ccfit.muratov.railroad.database.column.Column;
 import ru.nsu.ccfit.muratov.railroad.database.table.Table;
 
 import java.io.IOException;
@@ -27,7 +23,12 @@ public class ViewTableController {
     private TableView dataTable;
     @FXML
     private TextArea tableNameHeader;
-
+    @FXML
+    private Button insertButton;
+    @FXML
+    private Button updateButton;
+    @FXML
+    private Button deleteButton;
     private Table table;
 
     public void setData(List<Row> rows, String tableName) {
@@ -35,6 +36,11 @@ public class ViewTableController {
         table = Schema.getInstance().getTable(tableName);
         ObservableList<TableColumn> textViewColumns = dataTable.getColumns();
         textViewColumns.clear();
+        if(!table.isMutable()) {
+            insertButton.setDisable(true);
+            updateButton.setDisable(true);
+            deleteButton.setDisable(true);
+        }
         for(var column: table.getColumns()) {
             TableColumn<Map, String> tableColumn = new TableColumn<>(column.getName());
             tableColumn.setCellValueFactory(new MapValueFactory<>(column.getName()));
