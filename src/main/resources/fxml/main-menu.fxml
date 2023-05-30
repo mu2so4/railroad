@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.ccfit.muratov.railroad.gui.MainController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <TextField alignment="CENTER" editable="false" focusTraversable="false" style="-fx-background-color: transparent;" text="Управление базой данных станции Новосибиск-Главный">
+        <font>
+            <Font name="DejaVu Sans Bold" size="25.0" />
+        </font>
+    </TextField>
+    <Button fx:id="newGameButton" mnemonicParsing="false" text="Создать игру">
+        <VBox.margin>
+            <Insets top="50.0" />
+        </VBox.margin></Button>
+    <Button fx:id="joinGameButton" layoutX="255.0" layoutY="126.0" mnemonicParsing="false" text="Присоединиться к игре">
+        <VBox.margin>
+            <Insets top="50.0" />
+        </VBox.margin>
+    </Button>
+    <Button id="exitButton" fx:id="exitButton" mnemonicParsing="false" onAction="#onExitClick" text="Выход">
+        <VBox.margin>
+            <Insets top="50.0" />
+        </VBox.margin></Button>
+</VBox>
