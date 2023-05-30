@@ -27,4 +27,12 @@ public class SelectTableController {
     public ListView getListOfTables() {
         return listOfTables;
     }
+
+    public void onSelectButtonClick() {
+        Object item = listOfTables.getSelectionModel().getSelectedItem();
+        if(item == null) {
+            return;
+        }
+        System.out.println(item);
+    }
 }
