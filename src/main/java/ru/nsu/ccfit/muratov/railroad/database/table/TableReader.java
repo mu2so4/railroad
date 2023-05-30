@@ -15,7 +15,7 @@ public class TableReader {
     private final String query;
 
     public TableReader() throws IOException {
-        query = QueryLoader.loadQuery("queries/main/table_rows.sql");
+        query = QueryLoader.loadQuery("/queries/main/table_rows.sql");
     }
 
     public void fetchTable(String tableName, OrderByList list) throws IOException, SQLException, DatabaseException {
