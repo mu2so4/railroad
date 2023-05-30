@@ -27,7 +27,7 @@ public class TableReader {
         List<Row> rows = new ArrayList<>();
         try(Statement statement = db.createStatement()) {
             String fullQuery = String.format(query, table.getName());
-            if(list != null) {
+            if(list != null && list.size() != 0) {
                 fullQuery += list.makeOrderByStatement();
             }
             ResultSet set = statement.executeQuery(fullQuery);
@@ -37,6 +37,7 @@ public class TableReader {
                     String columnName = column.getName();
                     row.add(columnName, set.getString(columnName));
                 }
+                rows.add(row);
             }
         }
         return rows;
