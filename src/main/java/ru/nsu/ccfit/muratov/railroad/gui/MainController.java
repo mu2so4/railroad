@@ -8,12 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import ru.nsu.ccfit.muratov.railroad.database.DatabaseException;
+import ru.nsu.ccfit.muratov.railroad.database.Schema;
 import ru.nsu.ccfit.muratov.railroad.database.table.Table;
-import ru.nsu.ccfit.muratov.railroad.database.table.TableListReader;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 public class MainController {
@@ -25,7 +23,7 @@ public class MainController {
         stage.close();
     }
 
-    public void onEditDataClick(ActionEvent event) throws IOException, SQLException, DatabaseException {
+    public void onEditDataClick(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/select-table.fxml"));
         Parent root = loader.load();
         Node source = (Node) event.getSource();
@@ -35,8 +33,7 @@ public class MainController {
         stage.show();
 
         SelectTableController controller = loader.getController();
-        TableListReader reader = new TableListReader();
-        List<Table> list = reader.loadTableList();
+        List<Table> list = Schema.getInstance().getTableList();
         var items = controller.getListOfTables().getItems();
         for(Table table: list) {
             items.add(table.getName());

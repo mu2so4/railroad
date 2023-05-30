@@ -7,13 +7,29 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import ru.nsu.ccfit.muratov.railroad.database.Schema;
+import ru.nsu.ccfit.muratov.railroad.database.column.Column;
+import ru.nsu.ccfit.muratov.railroad.database.table.Table;
 
 import java.io.IOException;
 
 public class SelectTableController {
     @FXML
     private ListView listOfTables;
+    @FXML
+    private TableView orderByTable;
+    @FXML
+    private TableColumn tableColumnColumn;
+    @FXML
+    private TableColumn orderByOptionColumn;
+    @FXML
+    private TableColumn priorityColumn;
+
+    private String currentSelectedTable;
 
     public void onBackButtonClick(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main-menu.fxml"));
@@ -33,6 +49,25 @@ public class SelectTableController {
         if(item == null) {
             return;
         }
-        System.out.println(item);
+        // todo opening the table data
+    }
+
+    public void onListItemClick() {
+        String item = (String) listOfTables.getSelectionModel().getSelectedItem();
+        tableColumnColumn.setCellValueFactory(new PropertyValueFactory<>("rowName"));
+        orderByOptionColumn.setCellValueFactory(new PropertyValueFactory<>("comboBox"));
+        priorityColumn.setCellValueFactory(new PropertyValueFactory<>("priority"));
+
+        if(item != null && !item.equals(currentSelectedTable)) {
+            currentSelectedTable = item;
+            orderByTable.getItems().clear();
+            Table table = Schema.getInstance().getTable(currentSelectedTable);
+            var primaryKey = table.getPrimaryKey();
+            for(Column column: table.getColumns()) {
+                orderByTable.getItems().add(new OrderByOptionRow(column.getName(),
+                        primaryKey.contains(column)));
+            }
+        }
+
     }
 }
