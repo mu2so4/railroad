@@ -11,12 +11,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import ru.nsu.ccfit.muratov.railroad.database.DatabaseException;
 import ru.nsu.ccfit.muratov.railroad.database.OrderByList;
+import ru.nsu.ccfit.muratov.railroad.database.Row;
 import ru.nsu.ccfit.muratov.railroad.database.Schema;
 import ru.nsu.ccfit.muratov.railroad.database.column.Column;
 import ru.nsu.ccfit.muratov.railroad.database.table.Table;
+import ru.nsu.ccfit.muratov.railroad.database.table.TableReader;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 public class SelectTableController {
     @FXML
@@ -45,12 +50,26 @@ public class SelectTableController {
         return listOfTables;
     }
 
-    public void onSelectButtonClick() {
+    public void onSelectButtonClick(ActionEvent event) throws IOException,
+            SQLException, DatabaseException {
         Object item = listOfTables.getSelectionModel().getSelectedItem();
         if(item == null) {
             return;
         }
         OrderByList orderByList = OrderByListProducer.createOrderByList(orderByTable);
+        TableReader reader = new TableReader(currentSelectedTable);
+        List<Row> rows = reader.fetchTable(orderByList);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/view-table.fxml"));
+        Parent root = loader.load();
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+        ViewTableController controller = loader.getController();
+        controller.setData(rows, currentSelectedTable);
     }
 
     public void onListItemClick() {
