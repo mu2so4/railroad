@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public class OrderByOptionRow {
     private final TextField rowName;
-    private final ComboBox<String> comboBox = new ComboBox<>();
+    private final ComboBox<String> orderByOption = new ComboBox<>();
     private final ComboBox<Integer> priority = new ComboBox<>();
 
     public static final String NO_SORT = "Не сортировать";
@@ -22,7 +22,7 @@ public class OrderByOptionRow {
         if(isPrimaryKey) {
             rowName.setStyle("-fx-font-weight: bold");
         }
-        comboBox.getItems().addAll(NO_SORT, ASCENDING, DESCENDING);
+        orderByOption.getItems().addAll(NO_SORT, ASCENDING, DESCENDING);
 
         priority.getItems().addAll(-1, 1, 2, 3);
     }

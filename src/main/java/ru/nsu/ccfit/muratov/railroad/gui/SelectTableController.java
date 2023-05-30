@@ -11,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import ru.nsu.ccfit.muratov.railroad.database.OrderByList;
 import ru.nsu.ccfit.muratov.railroad.database.Schema;
 import ru.nsu.ccfit.muratov.railroad.database.column.Column;
 import ru.nsu.ccfit.muratov.railroad.database.table.Table;
@@ -49,13 +50,13 @@ public class SelectTableController {
         if(item == null) {
             return;
         }
-        // todo opening the table data
+        OrderByList orderByList = OrderByListProducer.createOrderByList(orderByTable);
     }
 
     public void onListItemClick() {
         String item = (String) listOfTables.getSelectionModel().getSelectedItem();
         tableColumnColumn.setCellValueFactory(new PropertyValueFactory<>("rowName"));
-        orderByOptionColumn.setCellValueFactory(new PropertyValueFactory<>("comboBox"));
+        orderByOptionColumn.setCellValueFactory(new PropertyValueFactory<>("orderByOption"));
         priorityColumn.setCellValueFactory(new PropertyValueFactory<>("priority"));
 
         if(item != null && !item.equals(currentSelectedTable)) {
