@@ -5,9 +5,7 @@ import ru.nsu.ccfit.muratov.railroad.database.table.TableListReader;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Schema {
     private static Schema dbSchema;
@@ -36,5 +34,11 @@ public class Schema {
 
     public Table getTable(String tableName) {
         return tables.get(tableName);
+    }
+
+    public List<Table> getTableList() {
+        List<Table> list = new ArrayList<>(tables.values());
+        list.sort(Comparator.comparing(Table::getName));
+        return list;
     }
 }

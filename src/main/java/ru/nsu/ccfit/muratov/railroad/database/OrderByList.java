@@ -43,6 +43,10 @@ public class OrderByList {
         order.put(order.size(), sortOption);
     }
 
+    public int size() {
+        return order.size();
+    }
+
     @Setter
     @Getter
     @AllArgsConstructor
