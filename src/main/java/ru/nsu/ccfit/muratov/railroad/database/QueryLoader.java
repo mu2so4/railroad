@@ -14,7 +14,7 @@ public class QueryLoader {
 
     public static String loadQuery(String filename) throws IOException {
         String query;
-        try(InputStream input = QueryLoader.class.getClassLoader().getResourceAsStream(filename)) {
+        try(InputStream input = QueryLoader.class.getResourceAsStream(filename)) {
             if(input == null) {
                 throw new FileNotFoundException(String.format("resource '%s' not found", filename));
             }
