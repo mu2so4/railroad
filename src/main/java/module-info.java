@@ -7,4 +7,5 @@ module ru.nsu.ccfit.muratov.railroad {
 
     opens ru.nsu.ccfit.muratov.railroad.gui to javafx.fxml;
     exports ru.nsu.ccfit.muratov.railroad.gui;
+    exports ru.nsu.ccfit.muratov.railroad.model;
 }

@@ -8,8 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import ru.nsu.ccfit.muratov.railroad.database.Schema;
-import ru.nsu.ccfit.muratov.railroad.database.table.Table;
+import ru.nsu.ccfit.muratov.railroad.model.Schema;
+import ru.nsu.ccfit.muratov.railroad.model.table.Table;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,8 +1,8 @@
 package ru.nsu.ccfit.muratov.railroad.gui;
 
 import javafx.scene.control.TableView;
-import ru.nsu.ccfit.muratov.railroad.database.OrderByList;
-import ru.nsu.ccfit.muratov.railroad.database.OrderType;
+import ru.nsu.ccfit.muratov.railroad.model.OrderByList;
+import ru.nsu.ccfit.muratov.railroad.model.OrderType;
 
 import java.util.List;
 

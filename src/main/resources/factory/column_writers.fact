@@ -1,14 +1,14 @@
-ru.nsu.ccfit.muratov.railroad.database.column.writer.OneTimeProductCreator
-ru.nsu.ccfit.muratov.railroad.database.column.writer.ColumnWriter
-varchar ru.nsu.ccfit.muratov.railroad.database.column.writer.StringColumnWriter
-character ru.nsu.ccfit.muratov.railroad.database.column.writer.StringColumnWriter
-boolean ru.nsu.ccfit.muratov.railroad.database.column.writer.BooleanColumnWriter
-integer ru.nsu.ccfit.muratov.railroad.database.column.writer.IntegerColumnWriter
-double ru.nsu.ccfit.muratov.railroad.database.column.writer.DoubleColumnWriter
-float ru.nsu.ccfit.muratov.railroad.database.column.writer.FloatColumnWriter
-numeric ru.nsu.ccfit.muratov.railroad.database.column.writer.NumericColumnWriter
-date ru.nsu.ccfit.muratov.railroad.database.column.writer.DateColumnWriter
-timestamp ru.nsu.ccfit.muratov.railroad.database.column.writer.StringColumnWriter
-timestamp_with_timezone ru.nsu.ccfit.muratov.railroad.database.column.writer.StringColumnWriter
-interval ru.nsu.ccfit.muratov.railroad.database.column.writer.StringColumnWriter
-money ru.nsu.ccfit.muratov.railroad.database.column.writer.DoubleColumnWriter
+ru.nsu.ccfit.muratov.railroad.model.column.writer.OneTimeProductCreator
+ru.nsu.ccfit.muratov.railroad.model.column.writer.ColumnWriter
+varchar ru.nsu.ccfit.muratov.railroad.model.column.writer.StringColumnWriter
+character ru.nsu.ccfit.muratov.railroad.model.column.writer.StringColumnWriter
+boolean ru.nsu.ccfit.muratov.railroad.model.column.writer.BooleanColumnWriter
+integer ru.nsu.ccfit.muratov.railroad.model.column.writer.IntegerColumnWriter
+double ru.nsu.ccfit.muratov.railroad.model.column.writer.DoubleColumnWriter
+float ru.nsu.ccfit.muratov.railroad.model.column.writer.FloatColumnWriter
+numeric ru.nsu.ccfit.muratov.railroad.model.column.writer.NumericColumnWriter
+date ru.nsu.ccfit.muratov.railroad.model.column.writer.DateColumnWriter
+timestamp ru.nsu.ccfit.muratov.railroad.model.column.writer.StringColumnWriter
+timestamp_with_timezone ru.nsu.ccfit.muratov.railroad.model.column.writer.StringColumnWriter
+interval ru.nsu.ccfit.muratov.railroad.model.column.writer.StringColumnWriter
+money ru.nsu.ccfit.muratov.railroad.model.column.writer.DoubleColumnWriter

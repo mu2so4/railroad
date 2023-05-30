@@ -10,9 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.stage.Stage;
-import ru.nsu.ccfit.muratov.railroad.database.Row;
-import ru.nsu.ccfit.muratov.railroad.database.Schema;
-import ru.nsu.ccfit.muratov.railroad.database.table.Table;
+import ru.nsu.ccfit.muratov.railroad.model.Row;
+import ru.nsu.ccfit.muratov.railroad.model.Schema;
+import ru.nsu.ccfit.muratov.railroad.model.table.Table;
 
 import java.io.IOException;
 import java.util.List;
