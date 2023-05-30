@@ -1,6 +1,5 @@
 package ru.nsu.ccfit.muratov.railroad.database.table;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import ru.nsu.ccfit.muratov.railroad.database.column.Column;
 
@@ -42,5 +41,14 @@ public class Table {
             }
         }
         return null;
+    }
+
+    public boolean isPrimaryKey(String columnName) {
+        for(Column column: columns) {
+            if(column.getName().equals(columnName)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
