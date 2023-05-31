@@ -51,4 +51,8 @@ public class Table {
         }
         return false;
     }
+
+    public boolean columnIsUpdatable(String columnName) {
+        return !isPrimaryKey(columnName) && getColumn(columnName).isUpdatable();
+    }
 }

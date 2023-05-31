@@ -37,7 +37,14 @@ public class ViewTableController {
     private Button updateButton;
     @FXML
     private Button deleteButton;
+    @FXML
+    private Button confirmButton;
+    @FXML
+    private Button cancelButton;
+
     private Table table;
+
+    private Row oldValue;
 
     public void setData(List<Row> rows, String tableName) {
         tableNameHeader.setText(tableName);
@@ -60,9 +67,9 @@ public class ViewTableController {
             for(Map.Entry<String, String> entry: row.getValues().entrySet()) {
                 TextField field = new TextField();
                 field.setEditable(false);
-                field.setStyle("-fx-text-box-border: transparent; -fx-focus-color: transparent;");
+                field.setStyle("-fx-background-color: transparent;");
                 if(table.isPrimaryKey(entry.getKey())) {
-                    field.setStyle("-fx-font-weight: bold");
+                    field.setStyle("-fx-background-color: transparent; -fx-font-weight: bold;");
                 }
                 field.setText(entry.getValue());
                 textFields.put(entry.getKey(), field);
@@ -91,14 +98,47 @@ public class ViewTableController {
             String name = column.getName();
             key.put(name, rowMap.get(name).getText());
         }
-        Row row = new Row(key);
+        Row keyRow = new Row(key);
         try {
-            RowDeleter.deleteRow(table.getName(), row);
+            RowDeleter.deleteRow(table.getName(), keyRow);
             errorTextArea.setVisible(false);
             dataTable.getItems().remove(index);
         } catch (SQLException | IOException | DatabaseException | ProductCreatorException e) {
-            errorTextArea.setVisible(true);
-            errorTextArea.setText(e.getMessage());
+            setErrorMessage(e.getMessage());
         }
+    }
+
+    public void onUpdateButtonClick() {
+        if(oldValue != null) {
+            errorTextArea.setVisible(true);
+            errorTextArea.setText("Уже идёт обновление строки");
+            return;
+        }
+        errorTextArea.setVisible(false);
+        Map<String, TextField> rowMap =
+                (Map<String, TextField>) dataTable.getSelectionModel().getSelectedItem();
+        if(rowMap == null) {
+            return;
+        }
+        oldValue = new Row(textFieldMapToStringMap(rowMap));
+        for(var entry: rowMap.entrySet()) {
+            TextField textField = entry.getValue();
+            if(table.columnIsUpdatable(entry.getKey())) {
+                textField.setEditable(true);
+            }
+        }
+    }
+
+    private void setErrorMessage(String message) {
+        errorTextArea.setVisible(true);
+        errorTextArea.setText(message);
+    }
+
+    private static Map<String, String> textFieldMapToStringMap(Map<String, TextField> textFieldMap) {
+        Map<String, String> stringMap = new HashMap<>();
+        for(Map.Entry<String, TextField> entry: textFieldMap.entrySet()) {
+            stringMap.put(entry.getKey(), entry.getValue().getText());
+        }
+        return stringMap;
     }
 }
