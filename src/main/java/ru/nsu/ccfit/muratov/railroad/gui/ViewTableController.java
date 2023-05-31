@@ -187,7 +187,7 @@ public class ViewTableController {
                 values.put(name, newValue);
             }
             try {
-                RowInserter.insertRow(table.getName(), new Row(values));
+                Row generatedKey = RowInserter.insertRow(table.getName(), new Row(values));
                 errorTextArea.setVisible(false);
                 for(Map.Entry<String, TextField> entry: selectedRow.entrySet()) {
                     TextField field = entry.getValue();
@@ -199,10 +199,16 @@ public class ViewTableController {
                         field.setStyle("-fx-background-color: transparent;");
                     }
                 }
+                for(var entry: generatedKey.getValues().entrySet()) {
+                    String columnName = entry.getKey();
+                    TextField field = selectedRow.get(columnName);
+                    field.setText(entry.getValue());
+                }
                 disableConfirmButtons();
                 selectedRow = null;
             } catch (SQLException e) {
                 setErrorMessage(e.getMessage());
+                e.printStackTrace();
             }
             catch(NumberFormatException e) {
                 setErrorMessage("Error on value convert: " + e.getMessage());
