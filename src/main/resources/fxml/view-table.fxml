@@ -48,8 +48,8 @@
             <Insets top="20.0" />
          </VBox.margin>
          <children>
-            <Button fx:id="confirmButton" disable="true" mnemonicParsing="false" text="ОК" />
-            <Button fx:id="cancelButton" disable="true" mnemonicParsing="false" text="Отмена">
+            <Button fx:id="confirmButton" disable="true" mnemonicParsing="false" onAction="#onConfirmButtonClick" text="ОК" />
+            <Button fx:id="cancelButton" disable="true" mnemonicParsing="false" onAction="#onCancelButtonClick" text="Отмена">
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin></Button>

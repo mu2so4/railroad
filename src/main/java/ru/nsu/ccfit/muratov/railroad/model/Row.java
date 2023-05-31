@@ -20,6 +20,10 @@ public class Row implements Iterable<Map.Entry<String, String>> {
         values.put(columnName, value);
     }
 
+    public String get(String columnName) {
+        return values.get(columnName);
+    }
+
     @Override
     public Iterator<Map.Entry<String, String>> iterator() {
         return values.entrySet().iterator();
