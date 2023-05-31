@@ -84,7 +84,7 @@ public class ViewTableController {
         stage.show();
     }
 
-    public void onDeleteButtonClick() {
+    public void onDeleteButtonClick() throws IOException, DatabaseException, ProductCreatorException {
         Map<String, TextField> rowMap = (Map<String, TextField>) dataTable.getSelectionModel().getSelectedItem();
         if (rowMap == null) {
             return;
@@ -100,8 +100,11 @@ public class ViewTableController {
             RowDeleter.deleteRow(table.getName(), keyRow);
             errorTextArea.setVisible(false);
             dataTable.getItems().remove(index);
-        } catch (SQLException | IOException | DatabaseException | ProductCreatorException e) {
+        } catch (SQLException e) {
             setErrorMessage(e.getMessage());
+        }
+        catch(NumberFormatException e) {
+            setErrorMessage("Error on value convert: " + e.getMessage());
         }
     }
 
@@ -142,7 +145,8 @@ public class ViewTableController {
         enableConfirmButtons();
     }
 
-    public void onConfirmButtonClick() {
+    public void onConfirmButtonClick() throws IOException, ProductCreatorException,
+            DatabaseException {
         if(oldValue != null) {
             Map<String, String> keyMap = new HashMap<>();
             for(Column column: table.getPrimaryKey()) {
@@ -153,7 +157,6 @@ public class ViewTableController {
             for(Column column: table.getColumns()) {
                 String name = column.getName();
                 TextField field = selectedRow.get(name);
-                field.setEditable(false);
                 String newValue = field.getText();
                 if(!oldValue.get(name).equals(newValue)) {
                     newValues.put(name, newValue);
@@ -162,13 +165,18 @@ public class ViewTableController {
             try {
                 RowUpdater.updateRow(table.getName(), new Row(keyMap), new Row(newValues));
                 errorTextArea.setVisible(false);
+                for(Map.Entry<String, TextField> entry: selectedRow.entrySet()) {
+                    entry.getValue().setEditable(false);
+                }
                 disableConfirmButtons();
-            }
-            catch(SQLException | ProductCreatorException | IOException | DatabaseException e) {
+                selectedRow = null;
+                oldValue = null;
+            } catch (SQLException e) {
                 setErrorMessage(e.getMessage());
             }
-            selectedRow = null;
-            oldValue = null;
+            catch(NumberFormatException e) {
+                setErrorMessage("Error on value convert: " + e.getMessage());
+            }
         }
         else {
             Map<String, String> values = new HashMap<>();
@@ -193,14 +201,18 @@ public class ViewTableController {
                 }
                 disableConfirmButtons();
                 selectedRow = null;
-            } catch (ProductCreatorException | SQLException | IOException | DatabaseException e) {
+            } catch (SQLException e) {
                 setErrorMessage(e.getMessage());
+            }
+            catch(NumberFormatException e) {
+                setErrorMessage("Error on value convert: " + e.getMessage());
             }
         }
     }
 
     public void onCancelButtonClick() {
         disableConfirmButtons();
+        errorTextArea.setVisible(false);
         if(oldValue != null) {
             for(Column column: table.getColumns()) {
                 String name = column.getName();
