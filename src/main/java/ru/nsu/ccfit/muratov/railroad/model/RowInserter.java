@@ -23,6 +23,9 @@ public class RowInserter {
     public static void insertRow(String tableName, Row values)
             throws DatabaseException, SQLException, IOException, ProductCreatorException {
         Table table = Schema.getInstance().getTable(tableName);
+        Map<String, String> valuesMap = values.getValues();
+        valuesMap.keySet().removeIf(
+                (entry) -> valuesMap.get(entry).isEmpty() || valuesMap.get(entry) == null);
         StringBuilder header = QueryFormFiller.createSimpleForm(values, "", ", ");
         StringBuilder valuesPlace = new StringBuilder();
         for(Map.Entry<String, String> column: values) {

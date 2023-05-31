@@ -143,7 +143,6 @@ public class ViewTableController {
     }
 
     public void onConfirmButtonClick() {
-        disableConfirmButtons();
         if(oldValue != null) {
             Map<String, String> keyMap = new HashMap<>();
             for(Column column: table.getPrimaryKey()) {
@@ -163,16 +162,40 @@ public class ViewTableController {
             try {
                 RowUpdater.updateRow(table.getName(), new Row(keyMap), new Row(newValues));
                 errorTextArea.setVisible(false);
+                disableConfirmButtons();
             }
             catch(SQLException | ProductCreatorException | IOException | DatabaseException e) {
                 setErrorMessage(e.getMessage());
-                rollbackUpdate();
             }
             selectedRow = null;
             oldValue = null;
         }
         else {
-            //todo inserting
+            Map<String, String> values = new HashMap<>();
+            for(Column column: table.getColumns()) {
+                String name = column.getName();
+                TextField field = selectedRow.get(name);
+                String newValue = field.getText();
+                values.put(name, newValue);
+            }
+            try {
+                RowInserter.insertRow(table.getName(), new Row(values));
+                errorTextArea.setVisible(false);
+                for(Map.Entry<String, TextField> entry: selectedRow.entrySet()) {
+                    TextField field = entry.getValue();
+                    field.setEditable(false);
+                    if(table.isPrimaryKey(entry.getKey())) {
+                        field.setStyle("-fx-background-color: transparent; -fx-font-weight: bold;");
+                    }
+                    else {
+                        field.setStyle("-fx-background-color: transparent;");
+                    }
+                }
+                disableConfirmButtons();
+                selectedRow = null;
+            } catch (ProductCreatorException | SQLException | IOException | DatabaseException e) {
+                setErrorMessage(e.getMessage());
+            }
         }
     }
 
@@ -187,7 +210,8 @@ public class ViewTableController {
             rollbackUpdate();
         }
         else {
-            //todo inserting
+            dataTable.getItems().remove(0);
+            selectedRow = null;
         }
     }
 
