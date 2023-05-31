@@ -19,6 +19,9 @@ public class RowUpdater {
 
     public static void updateRow(String tableName, Row rowKey, Row newValues)
             throws DatabaseException, SQLException, ProductCreatorException, IOException {
+        if(newValues.getValues().isEmpty()) {
+            return;
+        }
         Table table = Schema.getInstance().getTable(tableName);
         if(!QueryLoader.checkPrimaryKey(table, rowKey)) {
             throw new SQLException(

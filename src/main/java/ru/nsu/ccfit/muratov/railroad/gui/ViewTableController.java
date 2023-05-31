@@ -147,9 +147,13 @@ public class ViewTableController {
             try {
                 RowUpdater.updateRow(table.getName(), new Row(keyMap), new Row(newValues));
                 errorTextArea.setVisible(false);
-            } catch (ProductCreatorException | SQLException | IOException | DatabaseException e) {
-                setErrorMessage(e.getMessage());
             }
+            catch(SQLException | ProductCreatorException | IOException | DatabaseException e) {
+                setErrorMessage(e.getMessage());
+                rollbackUpdate();
+            }
+            oldValuePlace = null;
+            oldValue = null;
         }
         else {
             //todo inserting
@@ -158,11 +162,32 @@ public class ViewTableController {
 
     public void onCancelButtonClick() {
         disableConfirmButtons();
+        if(oldValue != null) {
+            for(Column column: table.getColumns()) {
+                String name = column.getName();
+                TextField field = oldValuePlace.get(name);
+                field.setEditable(false);
+            }
+            rollbackUpdate();
+        }
+        else {
+            //todo inserting
+        }
     }
 
     private void setErrorMessage(String message) {
         errorTextArea.setVisible(true);
         errorTextArea.setText(message);
+    }
+
+    private void rollbackUpdate() {
+        for(Map.Entry<String, TextField> entry: oldValuePlace.entrySet()) {
+            String columnName = entry.getKey();
+            TextField field = oldValuePlace.get(columnName);
+            field.setText(oldValue.get(columnName));
+        }
+        oldValuePlace = null;
+        oldValue = null;
     }
 
     private void enableConfirmButtons() {
