@@ -54,8 +54,20 @@ public class ViewTableController {
             tableColumn.setCellValueFactory(new MapValueFactory<>(column.getName()));
             textViewColumns.add(tableColumn);
         }
+        var items = dataTable.getItems();
         for(Row row: rows) {
-            dataTable.getItems().add(row.getValues());
+            Map<String, TextField> textFields = new HashMap<>();
+            for(Map.Entry<String, String> entry: row.getValues().entrySet()) {
+                TextField field = new TextField();
+                field.setEditable(false);
+                field.setStyle("-fx-text-box-border: transparent; -fx-focus-color: transparent;");
+                if(table.isPrimaryKey(entry.getKey())) {
+                    field.setStyle("-fx-font-weight: bold");
+                }
+                field.setText(entry.getValue());
+                textFields.put(entry.getKey(), field);
+            }
+            items.add(textFields);
         }
     }
 
@@ -69,12 +81,15 @@ public class ViewTableController {
     }
 
     public void onDeleteButtonClick() {
-        Map<String, String> rowMap = (Map<String, String>) dataTable.getSelectionModel().getSelectedItem();
+        Map<String, TextField> rowMap = (Map<String, TextField>) dataTable.getSelectionModel().getSelectedItem();
+        if(rowMap == null) {
+            return;
+        }
         int index = dataTable.getSelectionModel().getSelectedIndex();
         Map<String, String> key = new HashMap<>();
         for(Column column: table.getPrimaryKey()) {
             String name = column.getName();
-            key.put(name, rowMap.get(name));
+            key.put(name, rowMap.get(name).getText());
         }
         Row row = new Row(key);
         try {

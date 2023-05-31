@@ -44,7 +44,7 @@ public class Table {
     }
 
     public boolean isPrimaryKey(String columnName) {
-        for(Column column: columns) {
+        for(Column column: primaryKey) {
             if(column.getName().equals(columnName)) {
                 return true;
             }
