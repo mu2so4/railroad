@@ -38,9 +38,10 @@ public class ViewTableController {
     private Button confirmButton;
     @FXML
     private Button cancelButton;
+
     private Table table;
     private Row oldValue;
-    private Map<String, TextField> oldValuePlace;
+    private Map<String, TextField> selectedRow;
 
     public void setData(List<Row> rows, String tableName) {
         tableNameHeader.setText(tableName);
@@ -83,7 +84,7 @@ public class ViewTableController {
         stage.show();
     }
 
-    public void onDeleteButtonClick() {
+    public void onDeleteButtonClick() throws IOException, DatabaseException, ProductCreatorException {
         Map<String, TextField> rowMap = (Map<String, TextField>) dataTable.getSelectionModel().getSelectedItem();
         if (rowMap == null) {
             return;
@@ -99,35 +100,53 @@ public class ViewTableController {
             RowDeleter.deleteRow(table.getName(), keyRow);
             errorTextArea.setVisible(false);
             dataTable.getItems().remove(index);
-        } catch (SQLException | IOException | DatabaseException | ProductCreatorException e) {
+        } catch (SQLException e) {
             setErrorMessage(e.getMessage());
+        }
+        catch(NumberFormatException e) {
+            setErrorMessage("Error on value convert: " + e.getMessage());
         }
     }
 
     public void onUpdateButtonClick() {
-        if (oldValue != null) {
-            errorTextArea.setVisible(true);
-            errorTextArea.setText("Уже идёт обновление строки");
+        if(selectedRow != null) {
+            setErrorMessage("Уже идёт обновление или вставка данных");
             return;
         }
         errorTextArea.setVisible(false);
-        oldValuePlace =
+        selectedRow =
                 (Map<String, TextField>) dataTable.getSelectionModel().getSelectedItem();
-        if (oldValuePlace == null) {
+        if (selectedRow == null) {
             return;
         }
-        oldValue = new Row(textFieldMapToStringMap(oldValuePlace));
-        for (var entry : oldValuePlace.entrySet()) {
+        oldValue = new Row(textFieldMapToStringMap(selectedRow));
+        for(var entry : selectedRow.entrySet()) {
             TextField textField = entry.getValue();
-            if (table.columnIsUpdatable(entry.getKey())) {
+            String columnName = entry.getKey();
+            if (table.columnIsUpdatable(columnName) && !table.isPrimaryKey(columnName)) {
                 textField.setEditable(true);
             }
         }
         enableConfirmButtons();
     }
 
-    public void onConfirmButtonClick() {
-        disableConfirmButtons();
+    public void onInsertButtonClick() {
+        if(selectedRow != null) {
+            setErrorMessage("Уже идёт обновление или вставка данных");
+            return;
+        }
+        selectedRow = new HashMap<>();
+        for(Column column: table.getColumns()) {
+            selectedRow.put(column.getName(), new TextField());
+        }
+        dataTable.getItems().add(0, selectedRow);
+        dataTable.getSelectionModel().focus(0);
+        dataTable.scrollTo(0);
+        enableConfirmButtons();
+    }
+
+    public void onConfirmButtonClick() throws IOException, ProductCreatorException,
+            DatabaseException {
         if(oldValue != null) {
             Map<String, String> keyMap = new HashMap<>();
             for(Column column: table.getPrimaryKey()) {
@@ -137,8 +156,7 @@ public class ViewTableController {
             Map<String, String> newValues = new HashMap<>();
             for(Column column: table.getColumns()) {
                 String name = column.getName();
-                TextField field = oldValuePlace.get(name);
-                field.setEditable(false);
+                TextField field = selectedRow.get(name);
                 String newValue = field.getText();
                 if(!oldValue.get(name).equals(newValue)) {
                     newValues.put(name, newValue);
@@ -147,31 +165,71 @@ public class ViewTableController {
             try {
                 RowUpdater.updateRow(table.getName(), new Row(keyMap), new Row(newValues));
                 errorTextArea.setVisible(false);
-            }
-            catch(SQLException | ProductCreatorException | IOException | DatabaseException e) {
+                for(Map.Entry<String, TextField> entry: selectedRow.entrySet()) {
+                    entry.getValue().setEditable(false);
+                }
+                disableConfirmButtons();
+                selectedRow = null;
+                oldValue = null;
+            } catch (SQLException e) {
                 setErrorMessage(e.getMessage());
-                rollbackUpdate();
             }
-            oldValuePlace = null;
-            oldValue = null;
+            catch(NumberFormatException e) {
+                setErrorMessage("Error on value convert: " + e.getMessage());
+            }
         }
         else {
-            //todo inserting
+            Map<String, String> values = new HashMap<>();
+            for(Column column: table.getColumns()) {
+                String name = column.getName();
+                TextField field = selectedRow.get(name);
+                String newValue = field.getText();
+                values.put(name, newValue);
+            }
+            try {
+                Row generatedKey = RowInserter.insertRow(table.getName(), new Row(values));
+                errorTextArea.setVisible(false);
+                for(Map.Entry<String, TextField> entry: selectedRow.entrySet()) {
+                    TextField field = entry.getValue();
+                    field.setEditable(false);
+                    if(table.isPrimaryKey(entry.getKey())) {
+                        field.setStyle("-fx-background-color: transparent; -fx-font-weight: bold;");
+                    }
+                    else {
+                        field.setStyle("-fx-background-color: transparent;");
+                    }
+                }
+                for(var entry: generatedKey.getValues().entrySet()) {
+                    String columnName = entry.getKey();
+                    TextField field = selectedRow.get(columnName);
+                    field.setText(entry.getValue());
+                }
+                disableConfirmButtons();
+                selectedRow = null;
+            } catch (SQLException e) {
+                setErrorMessage(e.getMessage());
+                e.printStackTrace();
+            }
+            catch(NumberFormatException e) {
+                setErrorMessage("Error on value convert: " + e.getMessage());
+            }
         }
     }
 
     public void onCancelButtonClick() {
         disableConfirmButtons();
+        errorTextArea.setVisible(false);
         if(oldValue != null) {
             for(Column column: table.getColumns()) {
                 String name = column.getName();
-                TextField field = oldValuePlace.get(name);
+                TextField field = selectedRow.get(name);
                 field.setEditable(false);
             }
             rollbackUpdate();
         }
         else {
-            //todo inserting
+            dataTable.getItems().remove(0);
+            selectedRow = null;
         }
     }
 
@@ -181,12 +239,12 @@ public class ViewTableController {
     }
 
     private void rollbackUpdate() {
-        for(Map.Entry<String, TextField> entry: oldValuePlace.entrySet()) {
+        for(Map.Entry<String, TextField> entry: selectedRow.entrySet()) {
             String columnName = entry.getKey();
-            TextField field = oldValuePlace.get(columnName);
+            TextField field = selectedRow.get(columnName);
             field.setText(oldValue.get(columnName));
         }
-        oldValuePlace = null;
+        selectedRow = null;
         oldValue = null;
     }
 
