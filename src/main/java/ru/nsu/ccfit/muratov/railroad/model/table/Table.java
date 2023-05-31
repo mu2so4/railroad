@@ -44,11 +44,15 @@ public class Table {
     }
 
     public boolean isPrimaryKey(String columnName) {
-        for(Column column: columns) {
+        for(Column column: primaryKey) {
             if(column.getName().equals(columnName)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public boolean columnIsUpdatable(String columnName) {
+        return !isPrimaryKey(columnName) && getColumn(columnName).isUpdatable();
     }
 }
