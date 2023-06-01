@@ -31,6 +31,9 @@ public class RowInserter {
         Map<String, String> valuesMap = values.getValues();
         valuesMap.keySet().removeIf(
                 (entry) -> valuesMap.get(entry).isEmpty() || valuesMap.get(entry) == null);
+        if(values.getValues().isEmpty()) {
+            throw new SQLException("not set parameters");
+        }
         StringBuilder header = QueryFormFiller.createSimpleForm(values, "", ", ");
         StringBuilder valuesPlace = new StringBuilder();
         for(Map.Entry<String, String> column: values) {

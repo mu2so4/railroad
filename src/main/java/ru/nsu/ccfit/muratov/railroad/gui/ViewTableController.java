@@ -9,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import ru.nsu.ccfit.muratov.railroad.model.*;
 import ru.nsu.ccfit.muratov.railroad.model.column.Column;
@@ -158,7 +160,9 @@ public class ViewTableController {
                 String name = column.getName();
                 TextField field = selectedRow.get(name);
                 String newValue = field.getText();
-                if(!oldValue.get(name).equals(newValue)) {
+                String old = oldValue.get(name);
+
+                if((old == null && newValue != null) || (old != null && !old.equals(newValue))) {
                     newValues.put(name, newValue);
                 }
             }
@@ -174,7 +178,7 @@ public class ViewTableController {
             } catch (SQLException e) {
                 setErrorMessage(e.getMessage());
             }
-            catch(NumberFormatException e) {
+            catch(IllegalArgumentException e) {
                 setErrorMessage("Error on value convert: " + e.getMessage());
             }
         }
@@ -210,7 +214,7 @@ public class ViewTableController {
                 setErrorMessage(e.getMessage());
                 e.printStackTrace();
             }
-            catch(NumberFormatException e) {
+            catch(IllegalArgumentException e) {
                 setErrorMessage("Error on value convert: " + e.getMessage());
             }
         }
@@ -230,6 +234,13 @@ public class ViewTableController {
         else {
             dataTable.getItems().remove(0);
             selectedRow = null;
+        }
+    }
+
+    public void onEnterPressed(KeyEvent event)
+            throws ProductCreatorException, IOException, DatabaseException {
+        if(selectedRow != null && event.getCode() == KeyCode.ENTER) {
+            onConfirmButtonClick();
         }
     }
 
