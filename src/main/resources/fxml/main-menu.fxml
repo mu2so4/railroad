@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: #f8f;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.ccfit.muratov.railroad.gui.MainController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <TextField alignment="CENTER" editable="false" focusTraversable="false" style="-fx-background-color: transparent;" text="Управление базой данных станции Новосибиск-Главный">
+        <font>
+            <Font name="DejaVu Sans Bold" size="22.0" />
+        </font>
+    </TextField>
+    <Button fx:id="editDataButton" mnemonicParsing="false" onAction="#onEditDataClick" text="Редактировать данные">
+        <VBox.margin>
+            <Insets top="70.0" />
+        </VBox.margin></Button>
+    <Button fx:id="performQueryButton" layoutX="255.0" layoutY="126.0" mnemonicParsing="false" onAction="#onPerformQueryClick" text="Выполнить запрос">
+        <VBox.margin>
+            <Insets top="70.0" />
+        </VBox.margin>
+    </Button>
+   <Button fx:id="aboutButton" mnemonicParsing="false" onAction="#onAboutClick" text="О приложении">
+      <VBox.margin>
+         <Insets top="70.0" />
+      </VBox.margin>
+   </Button>
+    <Button id="exitButton" fx:id="exitButton" mnemonicParsing="false" onAction="#onExitClick" text="Выход">
+        <VBox.margin>
+            <Insets top="70.0" />
+        </VBox.margin></Button>
+</VBox>

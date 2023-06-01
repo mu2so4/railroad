@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.muratov.railroad.database;
+package ru.nsu.ccfit.muratov.railroad.model;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,9 +28,14 @@ public class Database implements AutoCloseable {
                 login, password);
     }
 
-    public static Connection getInstance() throws IOException, ClassNotFoundException, SQLException {
-        if(connection == null) {
-            init();
+    public static Connection getInstance() throws DatabaseException {
+        try {
+            if (connection == null) {
+                init();
+            }
+        }
+        catch(IOException | ClassNotFoundException | SQLException e) {
+            throw new DatabaseException(e);
         }
         return connection;
     }

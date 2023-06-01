@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: #f8f;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.ccfit.muratov.railroad.gui.AboutController">
+   <children>
+      <TextField alignment="TOP_CENTER" editable="false" text="О приложении">
+         <font>
+            <Font name="DejaVu Sans Bold" size="25.0" />
+         </font>
+      </TextField>
+      <TextArea editable="false" focusTraversable="false" prefHeight="131.0" prefWidth="560.0" text="Данное приложение НЕ является реальным приложением для работы с информационной системы железнодорожной станции &quot;Новосибирск-Главный&quot;.&#10;&#10;Данное приложение было разработано в рамках курса ФИТ НГУ &quot;Базы Данных&quot; (6 семестр) Муратовым Максимом Александровичем в 2023 году." wrapText="true">
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" top="80.0" />
+         </VBox.margin>
+      </TextArea>
+      <Button fx:id="backButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onBackButtonClick" text="Назад">
+         <VBox.margin>
+            <Insets top="60.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+</VBox>

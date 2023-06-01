@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: #f8f;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.ccfit.muratov.railroad.gui.SelectTableController">
+   <TextField alignment="TOP_CENTER" editable="false" focusTraversable="false" text="Выбор таблицы для просмотра">
+      <font>
+         <Font name="DejaVu Sans Bold" size="21.0" />
+      </font>
+   </TextField>
+   <ListView fx:id="listOfTables" onMouseClicked="#onListItemClick" prefHeight="206.0" prefWidth="800.0" />
+
+   <TableView fx:id="orderByTable" prefHeight="200.0" prefWidth="200.0">
+      <columns>
+         <TableColumn fx:id="tableColumnColumn" editable="false" prefWidth="150.0" sortable="false" text="Название столбца" />
+         <TableColumn fx:id="orderByOptionColumn" minWidth="0.0" prefWidth="170.0" sortable="false" text="Порядок сортировки" />
+         <TableColumn fx:id="priorityColumn" prefWidth="189.0" sortable="false" text="Приоритет сортировки" />
+      </columns>
+      <VBox.margin>
+         <Insets top="50.0" />
+      </VBox.margin>
+   </TableView>
+
+   <Button fx:id="makeChoiceButton" mnemonicParsing="false" onAction="#onSelectButtonClick" text="Выбрать">
+      <VBox.margin>
+         <Insets top="50.0" />
+      </VBox.margin>
+   </Button>
+   <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClick" text="Назад">
+      <VBox.margin>
+         <Insets top="50.0" />
+      </VBox.margin>
+   </Button>
+</VBox>

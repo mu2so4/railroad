@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#onEnterPressed" prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: #f8f;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.ccfit.muratov.railroad.gui.ViewTableController">
+   <children>
+      <TextArea fx:id="tableNameHeader" editable="false" focusTraversable="false" prefHeight="78.0" prefWidth="600.0" promptText="Название_таблицы" style="-fx-background-color: transparent;">
+         <padding>
+            <Insets top="30.0" />
+         </padding>
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </TextArea>
+      <HBox alignment="TOP_CENTER" prefHeight="60.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="insertButton" mnemonicParsing="false" onAction="#onInsertButtonClick" text="Добавить">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#onUpdateButtonClick" text="Обновить">
+               <HBox.margin>
+                  <Insets left="70.0" right="70.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDeleteButtonClick" text="Удалить" />
+         </children>
+         <VBox.margin>
+            <Insets top="50.0" />
+         </VBox.margin>
+      </HBox>
+      <TextArea fx:id="errorTextArea" editable="false" focusTraversable="false" prefHeight="92.0" prefWidth="740.0" promptText="Страшная ошибка" style="-fx-text-fill: #ff0000; -fx-background-color: transparent;" visible="false" wrapText="true">
+         <VBox.margin>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </VBox.margin>
+      </TextArea>
+      <TableView fx:id="dataTable" prefHeight="287.0" prefWidth="800.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="800.0">
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+         <children>
+            <Button fx:id="confirmButton" disable="true" mnemonicParsing="false" onAction="#onConfirmButtonClick" text="ОК" />
+            <Button fx:id="cancelButton" disable="true" mnemonicParsing="false" onAction="#onCancelButtonClick" text="Отмена">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin></Button>
+         </children>
+      </HBox>
+      <Button mnemonicParsing="false" onAction="#onBackButtonClick" text="В меню">
+         <VBox.margin>
+            <Insets top="30.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+</VBox>

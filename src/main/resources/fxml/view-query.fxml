@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.ccfit.muratov.railroad.gui.ViewTableController">
+    <children>
+        <TextArea fx:id="tableNameHeader" editable="false" focusTraversable="false" prefHeight="78.0" prefWidth="600.0" promptText="Название_таблицы" style="-fx-background-color: transparent;">
+            <padding>
+                <Insets top="30.0" />
+            </padding>
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </TextArea>
+        <TableView fx:id="dataTable" prefHeight="420.0" prefWidth="800.0">
+            <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+            </columns>
+        </TableView>
+        <Button mnemonicParsing="false" onAction="#onBackButtonClick" text="В меню">
+            <VBox.margin>
+                <Insets top="30.0" />
+            </VBox.margin>
+        </Button>
+    </children>
+</VBox>
